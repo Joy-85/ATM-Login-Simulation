@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM stimulator system</title>
+    <style>
+         *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            
+            width: 100%;
+        }
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 2rem 8rem;
+            gap: 1rem;
+        }
+        .flex-container{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .flex-child{
+            display: flex;
+            width: 100%;
+            gap: 3rem;
+            padding: 0.5rem;
+            justify-content: first baseline;
+            align-items: first baseline;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center;
+            align-items: center; */
+            padding: 5px;
+            gap: 0.5rem;
+            /* border: 1px solid black; */
+        }
+        .flex1{
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center;
+            align-items: center; */
+            gap: 0.5rem;
+        }
+        .flex1 input{
+            padding: 0.5rem;
+            width: 300px;
+        }
+        #loginButton{
+            background-color: blue;
+            color: white;
+            padding: 0.5rem;
+            width: 300px;
+            border-radius: 5px;
+        }
+        #loginButton:disabled{
+            background-color: gray;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        #resetButton{
+            background-color: green;
+            color: white; 
+            font-weight: bold;
+            padding: 0.5rem;
+            width: 300px;
+            border-radius: 5px;
+        }
+        #resetButton:disabled{
+            background-color: gray;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>ATM SIMULATION SYSTEM</h1>
+        <div class="flex-container">
+            <div>
+                <h2>Demo Accounts for testing :</h2>
+            </div>
+            <div class="flex-child">
+                <div>
+                    <p>Card : 1234567890123456</p>
+                    <p>Pin: 1234</p>
+                    <p>Name: John Doe</p>
+                </div>
+                <div>
+                    <p>Card : 9876543210987654</p>
+                    <p>Pin: 5678</p>
+                    <p>Name: Jane Smith</p>
+                </div>
+                <div>
+                    <p>Card : 1111222233334444</p>
+                    <p>Pin: 9999</p>
+                    <p>Name: Bob Johnson</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <h1>ATM LOGIN</h1>
+            <p id="message"></p>
+            <div class="flex1">
+                <label for="cardNumber"> Card Number</label>
+            <input 
+                type="text" 
+                placeholder="Enter 16-digit card number" 
+                name="card"
+                id="cardNumber"
+                maxlength="16"
+            >
+            </div>
+            <div class="flex1">
+                <label for="password">Pin</label>
+                <input 
+                    type="text"
+                    placeholder="Enter 4-digit pin"
+                    name="pin"
+                    id="password"
+                    maxlength="4"
+                >
+            </div>
+            <div>
+                <button id="loginButton">Login</button>
+            </div>
+            <div>
+                <button id="resetButton">Reset ATM </button>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script src="script.js"></script>
+</html>
