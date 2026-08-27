@@ -4,9 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM Simulation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello</h1>
+    <div class="wrapper">
+        <div class="header">
+            <h1> ATM SIMULATION SYSTEM </h1>
+        </div>
+        <div>
+            <p> Practice everyday banking operations in a safe, simulated environment. Sign in with one of the test accounts below to explore the system. </p>
+        </div>
+        <div class="flex-container">
+            <div>
+                <h3>Demo Accounts for testing :</h3>
+            </div>
+            <div class="flex-child">
+                <div>
+                    <p><span class="bold">Card</span> : 1234567890123456</p>
+                    <p><span class="bold">Pin</span>: 1234</p>
+                    <p><span class="bold">Name</span>: John Doe</p>
+                </div>
+                <div>
+                    <p><span class="bold">Card</span> : 9876543210987654</p>
+                    <p><span class="bold">Pin</span>: 5678</p>
+                    <p><span class="bold">Name</span>: Jane Smith</p>
+                </div>
+                <div>
+                    <p><span class="bold">Card</span>: 1111222233334444</p>
+                    <p><span class="bold">Pin</span>: 9999</p>
+                    <p><span class="bold">Name</span>: Bob Johnson</p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="sub-container">
+                    <div>
+                        <h2>Welcome, <span id="account-name"></span>!</h2>
+                        <p>card: <span id="card-number"></span></p>
+                    </div>
+                    <div>
+                        <button id="logout-button">Log out</button>
+                    </div>
+            </div>
+            <div class="message-box ">
+                <p id="display-messages"></p>
+            </div>
+            <div class="card-container">
+                <div class="card">
+                    <div>
+                        <h3>Balance Inquiry</h3>
+                        <p>Check your current account balance</p>
+                        <button id="balance-button">Check Balance</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>Deposit</h3>
+                        <p>Add money to your account</p>
+                        <div class="form">
+                            <input type="text" placeholder="Enter amount" id="deposit-input">
+                            <button id="deposit-button" >Deposit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>Withdrawal</h3>
+                        <p>Withdraw money from your account</p>
+                        <div class="form">
+                            <input type="text" placeholder="Enter amount" id="withdraw-input" >
+                            <button id="withdraw-button"> Withdraw </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <h3>Change Pin</h3>
+                        <p>Update Your security Pin</p>
+                        <div class="form">
+                            <input type="text" placeholder= "New PIN (4 digits)" id="new-pin"  maxlength="4">
+                            <input type="text" placeholder= "Confirm Pin" id="confirm-pin" 
+                            maxlength="4">
+                            <button id="changePin-button"> Change Pin </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-wrapper" id="table-container"></div>
+        </div>
+    </div>
 </body>
-<script src="dashboard.js"></script>
+<script src="dashboard2.js"></script>
 </html>

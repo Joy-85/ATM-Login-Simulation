@@ -16,7 +16,6 @@ Concepts practiced:
 Author: Joy Amarachi Ugwuoke
 
 */
-
 const cardNumber = document.getElementById('cardNumber');
 const pinNumber = document.getElementById('password');
 const loginButton = document.getElementById('loginButton');
@@ -157,12 +156,12 @@ function canLogin(cardInput, cardDigits, pinInput, pinDigits){
 
 // Saves the current application state so the user's session can survive a page refresh.
 function saveAppState(){
-    localStorage.setItem("appState", JSON.stringify(appState));
+    sessionStorage.setItem("appState", JSON.stringify(appState));
 }
 
 // Restores the last saved application state when the page loads.
 function loadAppState(){
-    const storedState = localStorage.getItem('appState');
+    const storedState = sessionStorage.getItem('appState');
 
     if(storedState)
     {
@@ -382,55 +381,84 @@ function handleUserInput(cardData, cardDigits, pinDigits, pinData) {
     renderUI();
 }
 
+function displayErrorMessage(){
+    messages.classList.add('displayErrorMessages');
+}
+function hideErrorMessage(){
+    messages.classList.remove('displayErrorMessages');
+}
+function displaySuccessMessage(){
+    messages.classList.add('displaySuccessMessages');
+}
+function hideSuccessMessage(){
+    messages.classList.remove('displaySuccessMessages');
+}
+
+
 // Synchronizes the user interface with the current application state. Displays messages, validation errors, enables/disables controls, and updates the form.
 function renderUI(){
     const currentConfig = stageConfig[appState.currentStage];
     if(appState.cardError)
     {
         cardNumber.style.border = '1px solid red';
+        displayErrorMessage();
         messages.textContent = currentConfig.messages.invalidCard;
         return;
     }
     else if(appState.invalidCardData)
     {
         cardNumber.style.border = '1px solid red';
+        displayErrorMessage();
         messages.textContent = currentConfig.messages.invalidData;
         return;
     }
     else
     {
         cardNumber.style.border = '';
+        hideErrorMessage();
         messages.textContent = '';
     }
     
     if(appState.pinError)
     {
         pinNumber.style.border = '1px solid red';
+        displayErrorMessage();
         messages.textContent = currentConfig.messages.invalidPin;
         return;
     }
     else if (appState.invalidPinData)
     {
         pinNumber.style.border = '1px solid red';
+        displayErrorMessage();
         messages.textContent = currentConfig.messages.invalidData;
         return;
     }
     else
     {
         pinNumber.style.border = '';
+        hideErrorMessage();
         messages.textContent = '';
     }
 
-    if(appState.currentStage === 'locked' || appState.currentStage === 'loggedIn')
+    if(appState.currentStage === 'locked' )
     {
+        displayErrorMessage();
+        messages.textContent = appState.message;
+    }
+    else if(appState.currentStage === 'loggedIn')
+    {
+        displaySuccessMessage();
         messages.textContent = appState.message;
     }
     else if(appState.noMatchedUser)
     {
+        displayErrorMessage();
         messages.textContent = currentConfig.messages.matchedAccount;
     }
     else 
     {
+        hideErrorMessage();
+        hideSuccessMessage();
         messages.textContent = '';
     }
     

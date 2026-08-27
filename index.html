@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM stimulator system</title>
+    
     <style>
          *{
             margin: 0;
@@ -11,37 +12,69 @@
             box-sizing: border-box;
         }
         body{
-            
             width: 100%;
+            font-size: 21px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #555F6E;
+            font-weight: 500;
         }
         .wrapper{
             display: flex;
             flex-direction: column;
             width: 100%;
-            margin: 2rem 8rem;
-            gap: 1rem;
+            gap: 2rem;
+            padding: 2rem 10rem;
+        }
+
+        .header{
+            color: #1E40AF;
+            font-size: xx-large;
+            font-weight: bolder;
         }
         .flex-container{
             width: 100%;
+            border: 1px solid #ffe62c;
             display: flex;
             flex-direction: column;
+            padding: 1.5rem 10rem 1.5rem 1.5rem;
+            gap: 1rem;
+            background-color: #FEFCE8;
         }
         .flex-child{
-            display: flex;
             width: 100%;
-            gap: 3rem;
-            padding: 0.5rem;
-            justify-content: first baseline;
-            align-items: first baseline;
+            display: flex;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+        .flex-container h3 {
+            color: #854E12;
+        }
+        .bold{
+            font-weight: bolder;
+            color: #11182B;
         }
         .container{
+            width: 100%;
             display: flex;
             flex-direction: column;
-            /* justify-content: center;
-            align-items: center; */
-            padding: 5px;
-            gap: 0.5rem;
+            padding: 2rem 8rem;
+            gap: 2rem;
             /* border: 1px solid black; */
+        }
+        .card{
+            width: 50%;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: auto;
+            align-items: center;
+            padding: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            gap: 1rem;
+        }
+        .card h1{
+            color: #1E40AF;
         }
         .flex1{
             display: flex;
@@ -51,14 +84,19 @@
             gap: 0.5rem;
         }
         .flex1 input{
-            padding: 0.5rem;
-            width: 300px;
+            padding: 1rem;
+            width: 500px;
+            border: 0.1px thin #E8EAED;
+            border-radius: 5px;
+        }
+        .button-container{
+            width: 500px;
         }
         #loginButton{
             background-color: blue;
             color: white;
-            padding: 0.5rem;
-            width: 300px;
+            padding: 1rem;
+            width: 500px;
             border-radius: 5px;
         }
         #loginButton:disabled{
@@ -70,8 +108,8 @@
             background-color: green;
             color: white; 
             font-weight: bold;
-            padding: 0.5rem;
-            width: 300px;
+            padding: 1rem;
+            width: 500px;
             border-radius: 5px;
         }
         #resetButton:disabled{
@@ -79,65 +117,306 @@
             cursor: not-allowed;
             opacity: 0.6;
         }
+        .displayErrorMessages {
+            width: 100%;
+            max-width: 100%;
+            min-height: 30px;
+            padding: 0.7rem;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #991B1B;
+            background-color: #FEF2F2;
+            border: 1px solid #FECACA;
+            text-align: center;
+        } 
+        .displaySuccessMessages{
+            width: 100%;
+            max-width: 100%; 
+            min-height: 30px; 
+            padding: 0.7rem; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            color: #166534; 
+            background-color: #F0FDF4; 
+            border: 1px solid #BBF7D0; 
+            text-align: center; 
+        } 
+
+        /* =========================
+   TABLET RESPONSIVENESS
+========================= */
+
+@media (max-width: 1024px) {
+
+    .wrapper {
+        padding: 2rem 5%;
+    }
+
+    .flex-container {
+        padding: 1.5rem;
+    }
+
+    .flex-child {
+        gap: 1.5rem;
+    }
+
+    .card {
+        max-width: 600px;
+    }
+
+    #loginButton,
+    #resetButton {
+        width: 28rem;
+    }
+}
+
+
+/* =========================
+   SMALL TABLET
+========================= */
+
+@media (max-width: 768px) {
+
+    .wrapper {
+        padding: 1.5rem 4%;
+        gap: 1.5rem;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .flex-container {
+        padding: 1.25rem;
+    }
+
+    .flex-child {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .flex-child > div {
+        width: 100%;
+    }
+
+    .container {
+        padding: 1rem 0;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 600px;
+        padding: 1.5rem;
+    }
+
+    .flex1 {
+        max-width: 500px;
+    }
+
+    .button-container {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    #loginButton,
+    #resetButton {
+        width: 100%;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        font-size: 16px;
+    }
+
+    .wrapper {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .wrapper > div:nth-child(2) p {
+        line-height: 1.5;
+    }
+
+    .flex-container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .flex-container h3 {
+        font-size: 1.1rem;
+    }
+
+    .flex-child {
+        gap: 1rem;
+    }
+
+    .flex-child > div {
+        width: 100%;
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .card {
+        width: 100%;
+        padding: 1.25rem;
+        gap: 1rem;
+    }
+
+    .card h1 {
+        font-size: 1.5rem;
+    }
+
+    .flex1 {
+        width: 100%;
+        max-width: none;
+    }
+
+    .flex1 input {
+        width: 100%;
+    }
+
+    /* Keep buttons large on mobile */
+    #loginButton,
+    #resetButton {
+        width: 100%;
+        
+        padding: 0.9rem;
+    }
+
+    .displayErrorMessages,
+    .displaySuccessMessages {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE PHONES
+========================= */
+
+@media (max-width: 400px) {
+
+    .wrapper {
+        padding: 0.8rem;
+    }
+
+    .header h1 {
+        font-size: 1.3rem;
+    }
+
+    .flex-container {
+        padding: 0.9rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .card h1 {
+        font-size: 1.35rem;
+    }
+
+    #loginButton,
+    #resetButton {
+        width: 100%;
+        padding: 0.85rem;
+    }
+
+    .displayErrorMessages,
+    .displaySuccessMessages {
+        font-size: 14px;
+    }
+}
+
+        
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <h1>ATM SIMULATION SYSTEM</h1>
+        <div class="header">
+            <h1>ATM SIMULATION SYSTEM</h1>
+        </div>
+        <div>
+            <p>
+                Practice everyday banking operations in a safe, simulated environment. Sign in with one of the test accounts below to explore the system.
+            </p>
+        </div>
         <div class="flex-container">
             <div>
-                <h2>Demo Accounts for testing :</h2>
+                <h3>Demo Accounts for testing :</h3>
             </div>
             <div class="flex-child">
                 <div>
-                    <p>Card : 1234567890123456</p>
-                    <p>Pin: 1234</p>
-                    <p>Name: John Doe</p>
+                    <p><span class="bold">Card</span> : 1234567890123456</p>
+                    <p><span class="bold">Pin</span>: 1234</p>
+                    <p><span class="bold">Name</span>: John Doe</p>
                 </div>
                 <div>
-                    <p>Card : 9876543210987654</p>
-                    <p>Pin: 5678</p>
-                    <p>Name: Jane Smith</p>
+                    <p><span class="bold">Card</span> : 9876543210987654</p>
+                    <p><span class="bold">Pin</span>: 5678</p>
+                    <p><span class="bold">Name</span>: Jane Smith</p>
                 </div>
                 <div>
-                    <p>Card : 1111222233334444</p>
-                    <p>Pin: 9999</p>
-                    <p>Name: Bob Johnson</p>
+                    <p><span class="bold">Card</span>: 1111222233334444</p>
+                    <p><span class="bold">Pin</span>: 9999</p>
+                    <p><span class="bold">Name</span>: Bob Johnson</p>
                 </div>
             </div>
         </div>
         <div class="container">
-            <h1>ATM LOGIN</h1>
-            <p id="message"></p>
-            <div class="flex1">
-                <label for="cardNumber"> Card Number</label>
-            <input 
-                type="text" 
-                placeholder="Enter 16-digit card number" 
-                name="card"
-                id="cardNumber"
-                maxlength="16"
-            >
-            </div>
-            <div class="flex1">
-                <label for="password">Pin</label>
-                <input 
-                    type="text"
-                    placeholder="Enter 4-digit pin"
-                    name="pin"
-                    id="password"
-                    maxlength="4"
-                >
-            </div>
-            <div>
-                <button id="loginButton">Login</button>
-            </div>
-            <div>
-                <button id="resetButton">Reset ATM </button>
+            <div class="card">
+                <div>
+                    <h1>Secure ATM Access</h1>
+                    <p>Secure access to your simulated account</p>
+                </div>
+                <div>
+                    <p id="message"></p>
+                </div>
+                <div class="flex1">
+                    <label for="cardNumber"> Card Number</label>
+                    <input 
+                        type="text" 
+                        placeholder="Enter 16-digit card number" 
+                        name="card"
+                        id="cardNumber"
+                        maxlength="16"
+                    >
+                </div>
+                <div class="flex1">
+                    <label for="password">Pin</label>
+                    <input 
+                        type="text"
+                        placeholder="Enter 4-digit pin"
+                        name="pin"
+                        id="password"
+                        maxlength="4"
+                    >
+                </div>
+                <div class="button-container">
+                    <button id="loginButton">Login</button>
+                </div>
+                <div class="button-container">
+                    <button id="resetButton">Reset ATM </button>
+                </div>
             </div>
         </div>
     </div>
-    
 </body>
 <script src="script.js"></script>
 </html>
