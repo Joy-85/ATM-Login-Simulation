@@ -74,9 +74,9 @@ const allowedTransactionTransition = {
     attemptingWithdrawal: ['idle', 'withdraw'],
     checkBalance: ['idle'],
     attemptToChangePin : ['idle', 'changePin'],
-    changePin : ['transactionSuccessful', 'transactionFailure'],
+    changePin : ['transactionSuccessful', 'transactionFailed'],
     withdraw : [ 'transactionSuccessful'],
-    deposit : ['transactionSuccessful', 'transactionFailure'],
+    deposit : ['transactionSuccessful', 'transactionFailed'],
     attemptingDeposit : ['idle', 'deposit'],
     transactionSuccessful : ['idle'],
     transactionFailed : ['idle'],
@@ -137,6 +137,7 @@ const transactionStateConfig = {
         },
     },
 }
+loadAppState();
 
 //Event handlers 
 // Respond to user interactions
@@ -238,7 +239,7 @@ function handleTransactionFlow()
         dashboardState.withdraw.hasWithdrawn = true;
         dashboardState.withdraw.dateAndTime = new Date();
         calculateTotalDailyWithdrawal();
-        dashboardState.transactionHistory.push({...dashboardState.withdraw, balance : `₦${dashboardState.accountBalance}`, amount : `₦${dashboardState.withdraw.amount}` });
+        dashboardState.transactionHistory.push({...dashboardState.withdraw, balance : dashboardState.accountBalance, amount : dashboardState.withdraw.amount});
         dashboardState.dashboardMessage = currentTransactionConfig.messages.reset;
     }
     
@@ -248,7 +249,7 @@ function handleTransactionFlow()
         dashboardState.accountBalance = dashboardState.accountBalance + dashboardState.deposit.amount;
         dashboardState.deposit.hasDeposited = true;
         dashboardState.deposit.dateAndTime = new Date();
-        dashboardState.transactionHistory.push({...dashboardState.deposit, balance : `₦${dashboardState.accountBalance}`, amount:`₦${dashboardState.deposit.amount}` });
+        dashboardState.transactionHistory.push({...dashboardState.deposit, balance : dashboardState.accountBalance, amount: dashboardState.deposit.amount});
         calculateTotalDailyDeposit();
         dashboardState.dashboardMessage = currentTransactionConfig.messages.reset;
     }
@@ -257,10 +258,10 @@ function handleTransactionFlow()
     if(dashboardState.currentTransaction === 'changePin')
     {
         appState.pin = dashboardState.changePin.newPin;
-        sessionStorage.setItem("appState", JSON.stringify(appState));
+        saveAppState();
         dashboardState.changePin.hasChangedPin = true;
         dashboardState.changePin.dateAndTime = new Date();
-        dashboardState.transactionHistory.push({type: 'Pin Change', amount: '-', dateAndTime:dashboardState.changePin.dateAndTime , balance : `₦${dashboardState.accountBalance}`});
+        dashboardState.transactionHistory.push({type: 'Pin Change', amount: '-', dateAndTime:dashboardState.changePin.dateAndTime , balance : dashboardState.accountBalance});
         dashboardState.dashboardMessage = currentTransactionConfig.messages.reset;
         dashboardState.changePin.newPin = '';
         dashboardState.changePin.confirmPin = '';
@@ -304,15 +305,21 @@ function saveAppState(){
     sessionStorage.setItem("appState", JSON.stringify(appState));
 }
 
+function loadAppState(){
+    const storedState = sessionStorage.getItem('appState');
+    if(!storedState )
+    {
+        window.location.href = 'index.html';
+    }
+}
+
 // LOGOUT
 // Clears the session and returns to the login page
 function canLogOut(){
-    // appState.currentStage = 'loggedOut';
-    // sessionStorage.setItem("appState", JSON.stringify(appState));
     sessionStorage.removeItem('appState');
     window.location.href = 'index.html';
 }
-                //Check Balance 
+                //Check Balance ()
 function checkBalance(nextTransition)
 {
     transitionTo(nextTransition);
@@ -456,13 +463,16 @@ function exceededDepositPerTransaction(amount, limit)
 // Check whether a transaction happened on the same day
 function isSameDay(previousDate){
     const transactionDate = previousDate;
+    
     let isSameDate;
     const today = new Date();
+    
     if(!transactionDate)
     {
         return true;
     }
     isSameDate = transactionDate.getFullYear() === today.getFullYear() && transactionDate.getMonth() === today.getMonth() && transactionDate.getDate() === today.getDate();
+    
     return isSameDate;
 }
 
@@ -470,13 +480,18 @@ function isSameDay(previousDate){
 function exceededDailyDepositLimit(amount, dailyLimit,previousDate)
 {
     let totalDailyDeposit;
+    
     let intendedDeposit;
+    console.log(`The last time the user carried out a deposit transaction is  ${previousDate}`);
+    
     if(!isSameDay(previousDate))
     {
         return false;
     }
     totalDailyDeposit = calculateTotalDailyDeposit();
+    
     intendedDeposit = totalDailyDeposit + amount;
+    
     if(intendedDeposit > dailyLimit)
     {
         dashboardState.exceededDailyDepositLimit = true;
@@ -640,11 +655,6 @@ function transitionTo(nextTransition)
     dashboardState.currentTransaction = nextTransition;
 }
 
-// Check whether the application can move to the login state
-function canTransitionToLoginPage(nextTransition){
-    return allowedStateTransition[appState.currentStage].includes(nextTransition);
-}
-
 // Check whether a transaction state transition is allowed
 function canTransition(nextTransition) {
     return allowedTransactionTransition[dashboardState.currentTransaction].includes(nextTransition);
@@ -743,9 +753,9 @@ function displayTransactionHistory()
         const typeColumn = row.insertCell();
         typeColumn.textContent = transaction.type;
         const amountColumn = row.insertCell();
-        amountColumn.textContent =  transaction.amount;
+        amountColumn.textContent =  `₦${transaction.amount}`;
         const balanceColumn = row.insertCell();
-        balanceColumn.textContent = transaction.balance;
+        balanceColumn.textContent = `₦${transaction.balance}`;
         const dateAndTimeColumn = row.insertCell();
         dateAndTimeColumn.textContent = transaction.dateAndTime
     });
