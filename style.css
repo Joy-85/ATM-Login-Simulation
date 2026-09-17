@@ -38,7 +38,6 @@ body{
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* border: 1px solid black; */
     padding: 2rem 8rem;
     gap: 2rem;
     
@@ -79,7 +78,7 @@ body{
     font-weight: bold;
 }
 .card-container{
-    /* border: 1px solid black; */
+    
     width: 100%;
     display: flex;
     gap: 1.51rem;  
@@ -87,7 +86,7 @@ body{
     font-size: 22px;
 }
 .card {
-    /* border: 1px solid blue;  */
+    
     width: 32%;
     display: flex;
     flex-direction: column;
@@ -108,7 +107,7 @@ body{
     width: 20rem;
     padding: 0.8rem;
     border-radius: 7px;
-    /* background-color: #DC2626; */
+    
     border: none;
     color: white;
     font-size: 18px;
@@ -162,25 +161,18 @@ body{
 }
 .table-wrapper {
     width: 100%;
-    /* overflow-x: visible; */
+    
     overflow-x: auto; 
-    /* background-color: white; */
+    
 }
 #table-wrap {
     width: 100%;
-    /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);  */
     padding: 0.6rem;
-    
-    /* background-color:white; */
-    /* box-shadow: 0 10px 30px red; */
-    /* border: 5px solid red; */
-
 }
 
 #myTable {
     width: 100%;
     border-collapse: collapse;
-    /* min-width: 600px; */
 }
 
 #myTable th,
@@ -227,11 +219,17 @@ body{
     text-align: center; 
 } 
 
-/* ===========================
-    Responsive Media Queries
-   =========================== */
+
 
 /* Large tablets and laptops */
+@media (max-width: 1575px) {
+    .wrapper        { padding: 2rem 4rem; }
+    .container      { padding: 2rem 3rem; }
+    .flex-container { padding: 1.5rem; }
+    .card           { width: 48%; }
+    .card-container button { width: 100%; }
+    .form input            { width: 100%; }
+}
 @media (max-width: 1200px) {
 
     .wrapper{

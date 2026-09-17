@@ -18,6 +18,7 @@ const LogOutButton = document.getElementById('logout-button');
 // DASHBOARD STATE
 // Stores the current condition of the ATM dashboard
 
+
 const dashboardState = {
     currentTransaction : 'idle',
     accountBalance : 5000,

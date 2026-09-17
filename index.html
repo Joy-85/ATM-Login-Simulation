@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM stimulator system</title>
     
-    <style>
+    <!-- <style>
          *{
             margin: 0;
             padding: 0;
@@ -343,8 +343,181 @@
         font-size: 14px;
     }
 }
+    </style> -->
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        
+body {
+    width: 100%;
+    font-size: 21px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #555F6E;
+    font-weight: 500;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1400px;      /* stops it sprawling on huge monitors */
+    margin: 0 auto;         /* centres the whole page */
+    gap: 2rem;
+    padding: 2rem clamp(1rem, 6vw, 10rem);  /* fluid padding */
+}
+
+.header {
+    color: #1E40AF;
+    font-size: xx-large;
+    font-weight: bolder;
+}
+
+.flex-container {
+    width: 100%;
+    border: 1px solid #ffe62c;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;        /* was 1.5rem 10rem 1.5rem 1.5rem */
+    gap: 1rem;
+    background-color: #FEFCE8;
+}
+
+.flex-child {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;        /* lets demo accounts wrap instead of squash */
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.flex-child > div {
+    min-width: 260px;       /* wrap point for the demo cards */
+    flex: 1;
+}
+
+.flex-container h3 { color: #854E12; }
+.bold { font-weight: bolder; color: #11182B; }
+
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;        /* was 2rem 8rem — the 8rem was the killer */
+    gap: 2rem;
+}
+
+.card {
+    width: 100%;            /* ← was 50% */
+    max-width: 600px;       /* ← the real width control */
+    margin: 0 auto;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    gap: 1rem;
+}
+
+.card h1 { color: #1E40AF; }
+
+.flex1 {
+    width: 100%;            /* ← was unset */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.flex1 input {
+    padding: 1rem;
+    width: 100%;            /* ← was 500px */
+    border: 1px solid #E8EAED;   /* 'thin' + '0.1px' was invalid */
+    border-radius: 5px;
+    font-size: inherit;
+}
+
+.button-container {
+    width: 100%;            /* ← was 500px */
+}
+
+#loginButton,
+#resetButton {
+    width: 100%;            /* ← was 500px */
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+#loginButton {
+    background-color: blue;
+    color: white;
+}
+
+#resetButton {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
+#loginButton:disabled,
+#resetButton:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.displayErrorMessages,
+.displaySuccessMessages {
+    width: 100%;
+    min-height: 30px;
+    padding: 0.7rem;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.displayErrorMessages {
+    color: #991B1B;
+    background-color: #FEF2F2;
+    border: 1px solid #FECACA;
+}
+
+.displaySuccessMessages {
+    color: #166534;
+    background-color: #F0FDF4;
+    border: 1px solid #BBF7D0;
+}
+
+@media (max-width: 768px) {
+    .wrapper { gap: 1.5rem; }
+    .flex-child { flex-direction: column; }
+    .flex-child > div { min-width: 0; }
+}
+
+@media (max-width: 600px) {
+    body { font-size: 16px; }
+    .wrapper { padding: 1rem; gap: 1.25rem; }
+    .header h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .card h1 { font-size: 1.5rem; }
+    .flex-container h3 { font-size: 1.1rem; }
+}
+
+@media (max-width: 400px) {
+    .wrapper { padding: 0.8rem; }
+    .header h1 { font-size: 1.3rem; }
+    .card { padding: 1rem; }
+    .card h1 { font-size: 1.35rem; }
+    .displayErrorMessages,
+    .displaySuccessMessages { font-size: 14px; }
+}
     </style>
 </head>
 <body>
